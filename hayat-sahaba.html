@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حياة الصحابة — موسوعة السِّيَر والغزوات والمواقف</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#123832;
+    --ink-2:#1f5c4f;
+    --parchment:#fbf3de;
+    --parchment-2:#f3e8c9;
+    --gold:#c6952c;
+    --gold-dim:#a97f2c;
+    --maroon:#7a2e2e;
+    --rose:#9c5252;
+    --charcoal:#2a2420;
+    --line: rgba(198,149,44,.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--parchment);
+    color:var(--charcoal);
+    font-family:'Tajawal', sans-serif;
+    line-height:1.75;
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(198,149,44,.06), transparent 40%),
+      radial-gradient(circle at 90% 30%, rgba(18,56,50,.05), transparent 40%);
+  }
+  h1,h2,h3,.display{font-family:'Amiri', serif;}
+  a{color:inherit;}
+
+  .rub{ display:inline-block; width:14px; height:14px; position:relative; flex:none; }
+  .rub::before,.rub::after{ content:""; position:absolute; inset:0; border:2px solid currentColor; }
+  .rub::after{ transform:rotate(45deg); }
+
+  header{
+    background:linear-gradient(160deg, var(--ink) 0%, var(--ink-2) 100%);
+    color:var(--parchment);
+    padding:38px 20px 0;
+    text-align:center;
+    position:relative;
+    border-bottom:1px solid var(--gold-dim);
+  }
+  header::after{
+    content:"";
+    display:block;
+    height:10px;
+    margin-top:26px;
+    background-image: repeating-linear-gradient(-45deg, var(--gold) 0 8px, transparent 8px 16px);
+    opacity:.55;
+  }
+  .brand-mark{ color:var(--gold); margin-bottom:10px; }
+  header h1{ font-size:clamp(26px,6vw,42px); margin:6px 0 6px; letter-spacing:.5px; }
+  header p.tagline{ margin:0 0 22px; font-size:14.5px; color:var(--parchment-2); opacity:.85; }
+
+  nav{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; padding-bottom:16px; max-width:900px; margin:0 auto; }
+  nav button{
+    font-family:'Tajawal', sans-serif; font-weight:700; font-size:13.5px;
+    background:transparent; color:var(--parchment-2);
+    border:1px solid rgba(251,243,222,.28);
+    padding:8px 15px; border-radius:999px; cursor:pointer; transition:.25s;
+    display:flex; align-items:center; gap:7px;
+  }
+  nav button:hover{ background:rgba(251,243,222,.08); }
+  nav button.active{ background:var(--gold); color:var(--ink); border-color:var(--gold); }
+  nav button:focus-visible, .search-box input:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+  main{ max-width:1020px; margin:0 auto; padding:34px 18px 70px; }
+
+  .search-wrap{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+  .search-box{ position:relative; width:min(420px,100%); }
+  .search-box input{
+    width:100%; padding:13px 44px 13px 16px; border-radius:10px; border:1px solid var(--line);
+    background:#fff; font-family:'Tajawal', sans-serif; font-size:15px; color:var(--charcoal);
+  }
+  .search-box .rub{ position:absolute; right:16px; top:50%; transform:translateY(-50%); color:var(--gold-dim); }
+  .filter-select{
+    padding:12px 16px; border-radius:10px; border:1px solid var(--line); background:#fff;
+    font-family:'Tajawal'; font-size:14px; color:var(--charcoal); cursor:pointer;
+  }
+  .result-count{ text-align:center; font-size:13px; color:#8a8175; margin-bottom:22px; }
+
+  section.view{ display:none; }
+  section.view.active{ display:block; animation:fade .4s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  .section-title{ text-align:center; margin-bottom:8px; font-size:clamp(22px,4vw,30px); color:var(--ink); }
+  .section-sub{ text-align:center; color:#5b544a; font-size:14.5px; margin:0 0 28px; }
+
+  .hero-panel{
+    background:#fff; border:1px solid var(--line); border-radius:16px; padding:34px 28px;
+    box-shadow:0 10px 30px rgba(18,56,50,.06);
+  }
+  .hero-panel h2{ color:var(--ink); font-size:26px; margin-top:0; }
+  .hero-panel p{ color:#4a443c; }
+  .value-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-top:26px; }
+  .value-chip{
+    border:1px solid var(--line); border-radius:12px; padding:15px;
+    background:linear-gradient(180deg,#fff, var(--parchment-2)); cursor:pointer; transition:.2s;
+  }
+  .value-chip:hover{ transform:translateY(-2px); }
+  .value-chip .rub{ color:var(--maroon); margin-bottom:8px; }
+  .value-chip h4{ margin:0 0 5px; font-weight:900; color:var(--ink); font-size:14.5px; }
+  .value-chip p{ margin:0; font-size:13px; color:#5b544a; }
+
+  .card-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; }
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px;
+    box-shadow:0 8px 22px rgba(18,56,50,.05); transition:.25s;
+  }
+  .card:hover{ transform:translateY(-3px); box-shadow:0 14px 28px rgba(18,56,50,.1); }
+  .card .top-row{ display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:8px; }
+  .card h3{ margin:0; font-size:18px; color:var(--ink); }
+  .tag-pill{
+    font-size:11.5px; color:var(--gold-dim); font-weight:700; border:1px solid var(--line);
+    padding:3px 9px; border-radius:999px; white-space:nowrap; flex:none;
+  }
+  .card .title-line{ font-size:13px; color:var(--maroon); font-weight:700; margin-bottom:8px; }
+  .card p{ margin:0; font-size:14px; color:#4a443c; }
+  .card.hidden{ display:none; }
+
+  .battle-card{ border-right:4px solid var(--maroon); }
+  .battle-card .year{ display:inline-block; font-family:'Amiri'; font-weight:700; color:var(--maroon); font-size:14px; margin-bottom:6px; }
+
+  .moment-block{ margin-bottom:34px; }
+  .moment-head{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .moment-head .rub{ color:var(--gold); }
+  .moment-head h3{ margin:0; color:var(--ink); font-size:19px; }
+  .anecdote{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:12px; }
+  .anecdote .who{ font-weight:900; color:var(--ink-2); font-size:14.5px; margin-bottom:4px; }
+  .anecdote p{ margin:0; font-size:14.5px; color:#4a443c; }
+
+  .love-card{ border-right:4px solid var(--rose); }
+  .hero-card{ border-right:4px solid var(--ink-2); }
+
+  .empty-state{ text-align:center; color:#8a8175; padding:40px 10px; font-size:14.5px; }
+
+  footer{ text-align:center; padding:26px 16px 40px; color:#7c7566; font-size:12.5px; }
+  footer .rub{ color:var(--gold-dim); margin:0 8px -2px; }
+
+  @media (max-width:520px){
+    nav button{ padding:7px 11px; font-size:12.5px; }
+    .hero-panel{ padding:22px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="rub" aria-hidden="true"></div>
+  <h1>حياة الصحابة</h1>
+  <p class="tagline">موسوعة في سِيَر مئة صحابي وصحابية، والمبشّرين بالجنة، وأمهات المؤمنين، وقصص الحب والبطولة</p>
+  <nav>
+    <button class="tab-btn active" data-target="home">الرئيسية</button>
+    <button class="tab-btn" data-target="sahaba">سِيَر الصحابة (100)</button>
+    <button class="tab-btn" data-target="asharah">المبشّرون بالجنة</button>
+    <button class="tab-btn" data-target="wives">أمهات المؤمنين</button>
+    <button class="tab-btn" data-target="battles">الغزوات</button>
+    <button class="tab-btn" data-target="love">قصص الحب</button>
+    <button class="tab-btn" data-target="heroics">البطولات</button>
+    <button class="tab-btn" data-target="moments">مواقف وعِبَر</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <section id="home" class="view active">
+    <div class="hero-panel">
+      <h2>مرحباً بك في هذه الموسوعة</h2>
+      <p>
+        نستعرض في هذه الصفحات سِيَر جيلٍ فريد من الناس، رجالاً ونساءً، رافقوا رسول الله ﷺ وحملوا رسالته من بعده:
+        مئة صحابي وصحابية بإيجازٍ عن حياتهم، والعشرة المبشَّرون بالجنة، وأمهات المؤمنين، وأبرز الغزوات، وقصص من الحب
+        والوفاء، وبطولات خالدة سطّرها هذا الجيل بسواعدهم وقلوبهم.
+      </p>
+      <div class="value-grid">
+        <div class="value-chip" data-goto="sahaba"><div class="rub" aria-hidden="true"></div><h4>سِيَر الصحابة</h4><p>مئة بطاقة عن كبار الصحابة والصحابيات، مع بحث فوري.</p></div>
+        <div class="value-chip" data-goto="asharah"><div class="rub" aria-hidden="true"></div><h4>المبشّرون بالجنة</h4><p>العشرة الذين بُشِّروا بالجنة وهم أحياء.</p></div>
+        <div class="value-chip" data-goto="wives"><div class="rub" aria-hidden="true"></div><h4>أمهات المؤمنين</h4><p>زوجات النبي ﷺ الإحدى عشرة، ومكانتهنّ.</p></div>
+        <div class="value-chip" data-goto="battles"><div class="rub" aria-hidden="true"></div><h4>الغزوات الكبرى</h4><p>محطات فاصلة في تاريخ الدعوة الأولى.</p></div>
+        <div class="value-chip" data-goto="love"><div class="rub" aria-hidden="true"></div><h4>قصص الحب</h4><p>حكايات وفاء وحب صادق بين الصحابة وأزواجهم.</p></div>
+        <div class="value-chip" data-goto="heroics"><div class="rub" aria-hidden="true"></div><h4>البطولات</h4><p>مواقف شجاعة نادرة في ساحات القتال.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAHABA 100 -->
+  <section id="sahaba" class="view">
+    <h2 class="section-title">سِيَر الصحابة الكرام</h2>
+    <p class="section-sub">مئة صحابي وصحابية — رضي الله عنهم أجمعين</p>
+    <div class="search-wrap">
+      <div class="search-box">
+        <input type="text" id="sahabaSearch" placeholder="ابحث باسم الصحابي أو الصحابية...">
+        <div class="rub" aria-hidden="true"></div>
+      </div>
+      <select id="tagFilter" class="filter-select">
+        <option value="">كل الفئات</option>
+        <option value="المبشّرون بالجنة">المبشّرون بالجنة</option>
+        <option value="أم المؤمنين">أمهات المؤمنين</option>
+        <option value="صحابية">الصحابيات</option>
+        <option value="صحابي">الصحابة الرجال</option>
+      </select>
+    </div>
+    <p class="result-count" id="resultCount"></p>
+    <div class="card-grid" id="sahabaGrid"></div>
+    <p class="empty-state" id="sahabaEmpty" style="display:none;">لم يُعثر على نتائج مطابقة للبحث.</p>
+  </section>
+
+  <!-- ASHARAH -->
+  <section id="asharah" class="view">
+    <h2 class="section-title">العشرة المبشّرون بالجنة</h2>
+    <p class="section-sub">الصحابة الذين بشّرهم النبي ﷺ بالجنة وهم على قيد الحياة</p>
+    <div class="card-grid" id="asharahGrid"></div>
+  </section>
+
+  <!-- WIVES -->
+  <section id="wives" class="view">
+    <h2 class="section-title">أمهات المؤمنين</h2>
+    <p class="section-sub">زوجات النبي ﷺ الإحدى عشرة، رضي الله عنهنّ</p>
+    <div class="card-grid" id="wivesGrid"></div>
+  </section>
+
+  <!-- BATTLES -->
+  <section id="battles" class="view">
+    <h2 class="section-title">الغزوات الكبرى</h2>
+    <p class="section-sub">محطات فاصلة في تاريخ الدعوة الأولى</p>
+    <div class="card-grid">
+      <div class="card battle-card"><span class="year">2 هـ — بدر الكبرى</span><h3>غزوة بدر</h3><p>أول معركة فاصلة في الإسلام، انتصر فيها المسلمون رغم قلة عددهم وعتادهم، فسُمّيت "يوم الفرقان" لأنها فرّقت بين الحق والباطل.</p></div>
+      <div class="card battle-card"><span class="year">3 هـ — أُحُد</span><h3>غزوة أحد</h3><p>درسٌ في أهمية طاعة القيادة؛ حين خالف بعض الرماة أمر النبي ﷺ بترك مواقعهم، تبدّلت موازين المعركة، فكانت عبرة راسخة في الانضباط.</p></div>
+      <div class="card battle-card"><span class="year">5 هـ — الأحزاب</span><h3>غزوة الخندق</h3><p>حين تحالفت قبائل عدة لمحاصرة المدينة، اقترح سلمان الفارسي حفر خندق حولها، فصمد المسلمون حتى تفرّق الأحزاب دون قتال كبير.</p></div>
+      <div class="card battle-card"><span class="year">6 هـ — الحديبية</span><h3>صلح الحديبية</h3><p>معاهدة بدت في ظاهرها مجحفة بحق المسلمين، لكنها فتحت الباب أمام انتشار الإسلام سلماً حتى وصفها القرآن بالفتح المبين.</p></div>
+      <div class="card battle-card"><span class="year">7 هـ — خيبر</span><h3>غزوة خيبر</h3><p>فتح حصون يهود خيبر بعد نقضهم العهود، وفيها تولى علي بن أبي طالب راية المسلمين ففتح الله على يديه.</p></div>
+      <div class="card battle-card"><span class="year">8 هـ — مؤتة</span><h3>معركة مؤتة</h3><p>استُشهد فيها القادة الثلاثة الذين عيّنهم النبي ﷺ واحداً بعد الآخر، حتى تولى خالد بن الوليد القيادة وأنقذ الجيش بمهارة نادرة.</p></div>
+      <div class="card battle-card"><span class="year">8 هـ — فتح مكة</span><h3>فتح مكة</h3><p>دخل المسلمون مكة فاتحين دون قتال يُذكر، وأعلن النبي ﷺ عفوه العام عمّن آذوه سنين طويلة، فكان درساً خالداً في التسامح والصفح.</p></div>
+      <div class="card battle-card"><span class="year">9 هـ — تبوك</span><h3>غزوة تبوك</h3><p>خرج فيها المسلمون في ظروف قاسية من حرّ وعسرة، فتسابق الصحابة في الإنفاق والتجهيز حتى سُمّيت غزوة العُسرة.</p></div>
+      <div class="card battle-card"><span class="year">13 هـ — اليرموك</span><h3>معركة اليرموك</h3><p>من أعظم المعارك الفاصلة في التاريخ، قادها خالد بن الوليد بخطة عسكرية محكمة، وأنهت الوجود البيزنطي في بلاد الشام.</p></div>
+      <div class="card battle-card"><span class="year">14-16 هـ — القادسية ونهاوند</span><h3>فتوح العراق وفارس</h3><p>معارك فاصلة قادها سعد بن أبي وقاص وغيره، أنهت دولة الفرس ومهّدت لدخول الإسلام بلاد فارس.</p></div>
+    </div>
+  </section>
+
+  <!-- LOVE STORIES -->
+  <section id="love" class="view">
+    <h2 class="section-title">قصص الحب عند الصحابة</h2>
+    <p class="section-sub">وفاء وصدق في أسمى صوره</p>
+    <div class="card-grid">
+      <div class="card love-card"><h3>أبو طلحة وأم سليم</h3><p>خطب أبو طلحة أم سليم قبل إسلامه فرفضته، ثم جعلت مهرها إسلامه هو نفسه لا مالاً ولا حُلياً، فأسلم من أجلها وتزوّجها، فكان مهراً لم يسمع الناس بمثله.</p></div>
+      <div class="card love-card"><h3>علي وفاطمة</h3><p>بيتٌ بسيط قام على المحبة والتفاهم رغم قلة ذات اليد، كان علي يعين فاطمة في أعمال المنزل وهي تدير بيتها بصبر ورضا، فضربا مثلاً في الشراكة الزوجية الهادئة.</p></div>
+      <div class="card love-card"><h3>وفاء عثمان لبنتَي الرسول</h3><p>تزوّج عثمان رقية بنت الرسول ﷺ، فلما توفيت زوّجه النبي ﷺ أختها أم كلثوم وفاءً له ولحزنه، فلُقّب بذي النورين لجمعه بين الزواج منهما.</p></div>
+      <div class="card love-card"><h3>حكمة جابر في اختيار زوجته</h3><p>سأله النبي ﷺ عن سبب زواجه من امرأة ثيّب لا من بكر، فأخبره أنه اختارها لترعى أخواته الصغيرات بحنانها وخبرتها، فأثنى عليه النبي ﷺ لحسن تدبيره.</p></div>
+      <div class="card love-card"><h3>محبة النبي ﷺ لزيد بن حارثة</h3><p>تبنّى النبي ﷺ زيداً قبل الوحي وأحبّه حباً عظيماً، حتى فضّل زيدٌ البقاء معه على العودة لأهله حين خُيِّر، فسُمّي "زيد بن محمد" قبل أن يبطل الإسلام التبني بحكمه.</p></div>
+      <div class="card love-card"><h3>تحوّل قلب صفية</h3><p>دخلت صفية بنت حيي في حياة النبي ﷺ بعد ظروف قاسية، فعاملها بلطف ورفق حتى تحوّل قلبها من الحزن إلى محبة صادقة، ودافعت عنه حين قيل فيها ما آذاها.</p></div>
+    </div>
+  </section>
+
+  <!-- HEROICS -->
+  <section id="heroics" class="view">
+    <h2 class="section-title">بطولات رائعة</h2>
+    <p class="section-sub">مواقف شجاعة سطّرها الصحابة في ساحات الوغى</p>
+    <div class="card-grid">
+      <div class="card hero-card"><h3>خالد بن الوليد ينقذ الجيش في مؤتة</h3><p>حين سقط القادة الثلاثة شهداء واحداً تلو الآخر، أخذ خالد الراية وأدار الجيش بخطة انسحاب محكمة أمام جيش أكبر بكثير، فسُمّي من يومها سيف الله المسلول.</p></div>
+      <div class="card hero-card"><h3>علي يفتح باب خيبر</h3><p>بعد أن عجز عن اقتحام الحصن من سبقه، أعطى النبي ﷺ الراية لعليّ فتقدّم بشجاعة نادرة حتى فتح الله عليه الحصن.</p></div>
+      <div class="card hero-card"><h3>الزبير بن العوام وهو فتى</h3><p>أوّل من سلّ سيفاً في سبيل الله وهو في ريعان شبابه دفاعاً عن النبي ﷺ حين شاع خبرٌ كاذب بأذيته، فسارع دون تردد رغم صغر سنه.</p></div>
+      <div class="card hero-card"><h3>أم عمارة تدافع عن النبي ﷺ</h3><p>يوم أحد حين تفرّق كثيرون عن النبي ﷺ، وقفت نسيبة بنت كعب بسيفها ودرعها تصدّ عنه الهجمات، فأصابتها جراح عدة وهي لا تتراجع.</p></div>
+      <div class="card hero-card"><h3>أبو دجانة يقي النبي بجسده</h3><p>لبس عصابته الحمراء علامة استعداده للموت، وانحنى فوق النبي ﷺ يوم أحد يتلقّى السهام بظهره حتى لا تصل إليه.</p></div>
+      <div class="card hero-card"><h3>طلحة يفدي النبي بيده</h3><p>تلقّى الضربات بيده ليحمي وجه النبي ﷺ يوم أحد حتى شُلّت أصابعه، فقال عنه النبي ﷺ إن طلحة ممّن قضى نحبه وهو حيّ يُرزق.</p></div>
+    </div>
+  </section>
+
+  <!-- MOMENTS -->
+  <section id="moments" class="view">
+    <h2 class="section-title">مواقف وعِبَر</h2>
+    <p class="section-sub">في الصدق والصداقة ومكانة الرسول ﷺ</p>
+
+    <div class="moment-block">
+      <div class="moment-head"><span class="rub" aria-hidden="true"></span><h3>الصدق</h3></div>
+      <div class="anecdote"><div class="who">أبو بكر الصديق — لقب لم يُنازَع فيه</div><p>حين أخبر النبي ﷺ الناس بخبر الإسراء والمعراج فكذّبه كثيرون، صدّقه أبو بكر فوراً دون أدنى تردد، فقيل له "الصدّيق" منذ ذلك اليوم.</p></div>
+    </div>
+
+    <div class="moment-block">
+      <div class="moment-head"><span class="rub" aria-hidden="true"></span><h3>الصداقة والأخوّة</h3></div>
+      <div class="anecdote"><div class="who">المؤاخاة بين المهاجرين والأنصار</div><p>حين وصل المهاجرون إلى المدينة تاركين أموالهم وديارهم، آخى النبي ﷺ بينهم وبين الأنصار، فتقاسم الأنصار بيوتهم وأموالهم مع إخوانهم في أخوّة نادرة المثال.</p></div>
+    </div>
+
+    <div class="moment-block">
+      <div class="moment-head"><span class="rub" aria-hidden="true"></span><h3>مكانة الرسول ﷺ عندهم</h3></div>
+      <div class="anecdote"><div class="who">الصحابة يوم الحديبية</div><p>لاحظ مندوب من قريش أن أصحاب النبي ﷺ لا يتركون قطرة من وضوئه تسقط على الأرض إلا تبرّكوا بها، فعاد لقومه واصفاً شدّة تعظيمهم له وتعلقهم به.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  الموسوعة الرقمية لحياة الصحابة <span class="rub" aria-hidden="true"></span> محتوى تعريفي عام، يُنصح بمراجعة المصادر الموثوقة للتوسّع
+</footer>
+
+<script>
+  // ---------- data ----------
+  const asharah = [
+    {n:"أبو بكر الصديق", b:"أول الخلفاء الراشدين ورفيق الهجرة، أول من آمن من الرجال الأحرار، عُرف برقة قلبه وصدقه الذي لم يتزعزع."},
+    {n:"عمر بن الخطاب", b:"الفاروق، الخليفة الثاني، اتسعت في عهده رقعة الدولة الإسلامية اتساعاً عظيماً، واشتُهر بعدله الصارم."},
+    {n:"عثمان بن عفان", b:"ذو النورين، الخليفة الثالث، جمع القرآن في مصحف واحد، واشتُهر بحيائه وكرمه الشديد."},
+    {n:"علي بن أبي طالب", b:"ابن عم النبي ﷺ وزوج ابنته فاطمة، الخليفة الرابع، عُرف بشجاعته النادرة وعلمه الغزير."},
+    {n:"طلحة بن عبيد الله", b:"من أوائل المسلمين، وقى النبي ﷺ بجسده يوم أحد حتى شُلّت أصابعه، فسُمّي طلحة الخير."},
+    {n:"الزبير بن العوام", b:"حواريّ النبي ﷺ وابن عمته، أول من سلّ سيفاً في سبيل الله وهو فتى صغير."},
+    {n:"عبد الرحمن بن عوف", b:"من كبار التجار المسلمين، رفض المِنَح المجانية وطلب أن يُدلّ على السوق ليتاجر بنفسه، فكان من أغنى الصحابة وأكثرهم إنفاقاً."},
+    {n:"سعد بن أبي وقاص", b:"أول من رمى سهماً في سبيل الله، قائد فتح العراق ومعركة القادسية الفاصلة."},
+    {n:"سعيد بن زيد", b:"من السابقين الأولين للإسلام، شهد المشاهد كلها إلا بدراً لعذر، وعُرف بورعه وزهده."},
+    {n:"أبو عبيدة بن الجراح", b:"لقّبه النبي ﷺ بأمين هذه الأمة، قاد جيوش الشام وعاش زاهداً متواضعاً رغم مكانته."}
+  ];
+
+  const wives = [
+    {n:"خديجة بنت خويلد", b:"زوجته الأولى وأول من آمن به، سخّرت مالها ومكانتها لدعم الدعوة في أصعب سنواتها."},
+    {n:"سودة بنت زمعة", b:"تزوّجها النبي ﷺ بعد وفاة خديجة، عُرفت بحسن خلقها وتنازلها عن يومها لعائشة إكراماً لها."},
+    {n:"عائشة بنت أبي بكر", b:"عُرفت بذكائها الحاد وسعة علمها، ونقلت للأمة قدراً كبيراً من سنة النبي ﷺ في بيته وحياته اليومية."},
+    {n:"حفصة بنت عمر", b:"ابنة عمر بن الخطاب، عُرفت بحفظها للقرآن، وحُفظت عندها الصحيفة الأولى التي جُمع فيها القرآن."},
+    {n:"زينب بنت خزيمة", b:"عُرفت بـ«أم المساكين» لكثرة إطعامها الفقراء قبل الإسلام وبعده، توفيت بعد زواجها من النبي ﷺ بفترة قصيرة."},
+    {n:"أم سلمة هند بنت أبي أمية", b:"عُرفت بحكمتها البالغة، ومنها مشورتها للنبي ﷺ يوم الحديبية التي حلّت أزمة صعبة بين المسلمين."},
+    {n:"زينب بنت جحش", b:"عُرفت بكثرة صدقتها وعملها بيدها لتتصدّق، وكانت تفخر بأن زواجها منه ﷺ جاء بأمر من الله في القرآن."},
+    {n:"جويرية بنت الحارث", b:"من سيدات بني المصطلق، أدى زواج النبي ﷺ منها إلى إسلام قومها كافة إكراماً لهذه المصاهرة."},
+    {n:"أم حبيبة رملة بنت أبي سفيان", b:"هاجرت مع زوجها إلى الحبشة فتوفي هناك، فتزوجها النبي ﷺ وهي بعيدة عن أهلها تكريماً لصبرها."},
+    {n:"صفية بنت حيي", b:"تحوّل قلبها من الحزن إلى محبة صادقة للنبي ﷺ بعد أن عاملها برفق، ودافعت عنه حين آذاها أحد."},
+    {n:"ميمونة بنت الحارث", b:"آخر من تزوجها النبي ﷺ، عُرفت بتقواها وصلة رحمها، وكانت من أكثر الصحابيات صلة بالأقارب."}
+  ];
+
+  const sahaba = [
+    {n:"حمزة بن عبد المطلب", t:"صحابي", b:"عم النبي ﷺ ولُقّب بأسد الله وأسد رسوله، استُشهد في أحد وكان من أشجع الصحابة."},
+    {n:"جعفر بن أبي طالب", t:"صحابي", b:"لُقّب بالطيار، قاد المهاجرين إلى الحبشة، واستُشهد في مؤتة بعد أن قاتل حتى قُطعت يداه."},
+    {n:"العباس بن عبد المطلب", t:"صحابي", b:"عم النبي ﷺ، كان له دور في نصرة الدعوة سراً قبل إعلان إسلامه، وعُرف بحكمته."},
+    {n:"خالد بن الوليد", t:"صحابي", b:"سيف الله المسلول، لم يُهزم في معركة قادها قط، وحسم اليرموك ومؤتة بعبقرية عسكرية نادرة."},
+    {n:"عمرو بن العاص", t:"صحابي", b:"قائد داهية، فتح مصر وأسّس مدينة الفسطاط، عُرف بذكائه ودهائه في التخطيط."},
+    {n:"بلال بن رباح", t:"صحابي", b:"أول مؤذن في الإسلام، عُذّب تعذيباً شديداً بسبب إسلامه فما زاده إلا ثباتاً وهو يردد أحد أحد."},
+    {n:"سلمان الفارسي", t:"صحابي", b:"ترك بلاده باحثاً عن الحق حتى وصل المدينة، وصاحب فكرة حفر الخندق التي حمت المدينة."},
+    {n:"عبد الله بن مسعود", t:"صحابي", b:"من أوائل من جهر بالقرآن في مكة رغم الخطر، وكان من أعلم الصحابة بالقرآن وتفسيره."},
+    {n:"أبي بن كعب", t:"صحابي", b:"سيد القرّاء كما وصفه النبي ﷺ، وأحد أبرز من جمعوا القرآن وحفظوه في حياة النبي ﷺ."},
+    {n:"زيد بن ثابت", t:"صحابي", b:"كاتب الوحي، تولى جمع القرآن في مصحف واحد في عهد أبي بكر ثم عثمان."},
+    {n:"معاذ بن جبل", t:"صحابي", b:"وصفه النبي ﷺ بأنه أعلم الأمة بالحلال والحرام، وبعثه النبي ﷺ إلى اليمن قاضياً ومعلماً."},
+    {n:"أبو هريرة", t:"صحابي", b:"أكثر الصحابة رواية للحديث، لازم النبي ﷺ ملازمة شديدة حرصاً على حفظ سنته."},
+    {n:"أنس بن مالك", t:"صحابي", b:"خادم النبي ﷺ لعشر سنين، نقل تفاصيل دقيقة من حياته اليومية وأخلاقه."},
+    {n:"جابر بن عبد الله", t:"صحابي", b:"من مكثري رواية الحديث، عُرف بحكمته في اختيار زوجته لرعاية أخواته الصغيرات."},
+    {n:"عبد الله بن عمر", t:"صحابي", b:"عُرف بشدة تمسّكه بالتزام سنة النبي ﷺ في أدق التفاصيل، وورعه الشديد."},
+    {n:"عبد الله بن عباس", t:"صحابي", b:"دعا له النبي ﷺ بالفقه في الدين، فصار من أعلم الصحابة بتفسير القرآن."},
+    {n:"عبد الله بن الزبير", t:"صحابي", b:"أول مولود للمهاجرين في المدينة، ونشأ نشأة جهادية عُرف فيها بشجاعته."},
+    {n:"سعد بن معاذ", t:"صحابي", b:"سيد الأوس، اهتزّ لموته عرش الرحمن كما ورد في الأثر، وكان حكيماً في بني قريظة."},
+    {n:"سعد بن عبادة", t:"صحابي", b:"سيد الخزرج، عُرف بكرمه الفائق حتى قيل إن بيته لم يُغلق بابه أمام محتاج."},
+    {n:"أسيد بن حضير", t:"صحابي", b:"من سادات الأنصار، سمع القرآن أول مرة فتأثر به تأثراً بالغاً حتى أسلم فوراً."},
+    {n:"أبو أيوب الأنصاري", t:"صحابي", b:"نزل النبي ﷺ في بيته أول قدومه للمدينة، وشارك في غزوات كثيرة حتى آخر حياته."},
+    {n:"أبو ذر الغفاري", t:"صحابي", b:"من أوائل من أسلم، عُرف بزهده الشديد في الدنيا وجرأته في قول الحق."},
+    {n:"عمار بن ياسر", t:"صحابي", b:"عُذّب مع أبويه بسبب إسلامهم، وبشّره النبي ﷺ بالجنة، واستُشهد وهو في التسعين من عمره."},
+    {n:"مصعب بن عمير", t:"صحابي", b:"أول سفير للإسلام إلى المدينة، ترك حياة الترف والنعمة من أجل دعوته، واستُشهد في أحد."},
+    {n:"زيد بن حارثة", t:"صحابي", b:"تبنّاه النبي ﷺ وأحبّه حباً عظيماً، وهو الصحابي الوحيد الذي ذُكر اسمه صراحة في القرآن."},
+    {n:"أسامة بن زيد", t:"صحابي", b:"حِبّ النبي ﷺ وابن حبّه، ولّاه النبي ﷺ قيادة جيش وهو شاب صغير ثقة بقدراته."},
+    {n:"خالد بن سعيد بن العاص", t:"صحابي", b:"من أوائل من أسلم من شباب قريش، وثبت على إسلامه رغم معارضة أسرته الشديدة."},
+    {n:"أبو موسى الأشعري", t:"صحابي", b:"عُرف بحسن صوته في تلاوة القرآن حتى قال فيه النبي ﷺ إنه أُوتي مزماراً من مزامير آل داود."},
+    {n:"عبادة بن الصامت", t:"صحابي", b:"أحد النقباء الاثني عشر ليلة بيعة العقبة، وعُرف بصرامته في قول الحق أمام الحكام."},
+    {n:"حذيفة بن اليمان", t:"صحابي", b:"صاحب سرّ النبي ﷺ في أسماء المنافقين، واختصّ بمعرفة الفتن قبل وقوعها."},
+    {n:"سلمة بن الأكوع", t:"صحابي", b:"عُرف بمهارته الفائقة في الرمي والعدو، وله مواقف بطولية في الدفاع عن قوافل المسلمين."},
+    {n:"البراء بن مالك", t:"صحابي", b:"أخو أنس بن مالك، عُرف بشجاعته الاستثنائية وإقدامه في المعارك حتى استُجيبت دعواته."},
+    {n:"البراء بن عازب", t:"صحابي", b:"شارك في غزوات كثيرة رغم صغر سنه في بعضها، ونقل عدداً من الأحاديث النبوية."},
+    {n:"عبد الله بن رواحة", t:"صحابي", b:"شاعر النبي ﷺ وأحد قادة مؤتة الثلاثة، استُشهد بعد أن قاتل بثبات نادر."},
+    {n:"النعمان بن مقرن", t:"صحابي", b:"قائد فتح نهاوند الحاسمة، عُرف بحسن تدبيره العسكري واستُشهد فيها بعد نصر عظيم."},
+    {n:"أبو دجانة", t:"صحابي", b:"لبس عصابته الحمراء علامة على استعداده للموت، ووقى النبي ﷺ بظهره يوم أحد."},
+    {n:"قتادة بن النعمان", t:"صحابي", b:"أُصيبت عينه يوم أحد فسقطت، فردّها النبي ﷺ بيده فعادت أحسن من الأخرى."},
+    {n:"سهل بن سعد", t:"صحابي", b:"من صغار الصحابة سناً الذين عاشوا طويلاً، فنقل تفاصيل كثيرة عن حياة النبي ﷺ."},
+    {n:"رافع بن خديج", t:"صحابي", b:"شارك في غزوات عديدة، ونقل أحاديث في أحكام الزراعة والمعاملات."},
+    {n:"الأرقم بن أبي الأرقم", t:"صحابي", b:"كان بيته أول مقر سري للدعوة الإسلامية في مكة قبل الجهر بها."},
+    {n:"عثمان بن مظعون", t:"صحابي", b:"من أوائل من هاجروا إلى الحبشة، وعُرف بزهده الشديد حتى استأذن النبي ﷺ في التبتل فمنعه."},
+    {n:"عمرو بن الجموح", t:"صحابي", b:"كان أعرج فأُعفي من القتال، فأصرّ على المشاركة في أحد وقال إنه يريد الجنة بعرجته، فاستُشهد."},
+    {n:"خباب بن الأرت", t:"صحابي", b:"من السابقين الذين عُذّبوا تعذيباً شديداً في مكة، وثبت على إسلامه رغم كل ما لقيه."},
+    {n:"صهيب الرومي", t:"صحابي", b:"تحمّل مشقة كبيرة في هجرته، وضحّى بماله كله ليتمكن من الهجرة فمدحه النبي ﷺ على ذلك."},
+    {n:"عبد الله بن حذافة السهمي", t:"صحابي", b:"حمل رسالة النبي ﷺ إلى ملك فارس، وثبت على دينه حتى في أصعب الأسر."},
+    {n:"شرحبيل بن حسنة", t:"صحابي", b:"من قادة الفتوحات في بلاد الشام، عُرف بحسن سياسته مع الأهالي بعد الفتح."},
+    {n:"يزيد بن أبي سفيان", t:"صحابي", b:"قائد من قادة فتح الشام، عُرف بحسن معاملته للسكان وعدله في الحكم."},
+    {n:"عتبة بن غزوان", t:"صحابي", b:"من السابقين إلى الإسلام، وله دور في تأسيس مدينة البصرة."},
+    {n:"الطفيل بن عمرو الدوسي", t:"صحابي", b:"أسلم في مكة ثم عاد لقومه داعياً حتى أسلم أكثرهم على يديه."},
+    {n:"عدي بن حاتم", t:"صحابي", b:"ابن حاتم الطائي الكريم، أسلم بعد تردد وأصبح من الدعاة النشطين للإسلام."},
+    {n:"جرير بن عبد الله البجلي", t:"صحابي", b:"وصفه النبي ﷺ بأنه من سادات العرب، شارك في فتوحات العراق وبلاد فارس."},
+    {n:"كعب بن مالك", t:"صحابي", b:"شاعر النبي ﷺ، وقصة توبته بعد تخلّفه عن غزوة تبوك من أشهر قصص الصدق في السيرة."},
+    {n:"حسان بن ثابت", t:"صحابي", b:"شاعر الرسول ﷺ، دافع عن الإسلام بشعره وردّ على هجاء المشركين."},
+    {n:"ثابت بن قيس", t:"صحابي", b:"خطيب النبي ﷺ، عُرف بفصاحته وبشّره النبي ﷺ بالجنة."},
+    {n:"عمرو بن أمية الضمري", t:"صحابي", b:"حمل رسائل النبي ﷺ إلى الملوك، وعُرف بشجاعته في المهام الصعبة."},
+    {n:"عكرمة بن أبي جهل", t:"صحابي", b:"أسلم بعد فتح مكة رغم عداء أبيه الشديد للإسلام، وقاتل بشجاعة في الفتوحات لاحقاً."},
+    {n:"أبو سفيان بن الحارث", t:"صحابي", b:"ابن عم النبي ﷺ ورضيعه، أسلم عند فتح مكة وثبت إلى جانبه في حنين."},
+    {n:"أسماء بنت أبي بكر", t:"صحابية", b:"عُرفت بذات النطاقين لأنها شقّت نطاقها لتزوّد أباها وطعامه ليلة الهجرة، وعُرفت بصبرها."},
+    {n:"فاطمة بنت محمد", t:"صحابية", b:"ابنة النبي ﷺ وزوجة علي، عاشت حياة بسيطة مليئة بالصبر والرضا، وأحبّها النبي ﷺ حباً عظيماً."},
+    {n:"أسماء بنت عميس", t:"صحابية", b:"هاجرت إلى الحبشة ثم المدينة، وتزوجت من عدة صحابة كبار، وعُرفت بحكمتها ورجاحة عقلها."},
+    {n:"أم عمارة نسيبة بنت كعب", t:"صحابية", b:"دافعت عن النبي ﷺ بسيفها يوم أحد حين تفرّق كثيرون، فأصابتها جراح عدة وهي ثابتة."},
+    {n:"أم سليم بنت ملحان", t:"صحابية", b:"جعلت مهرها إسلام أبي طلحة، وعُرفت بصبرها الشديد وحسن تدبيرها لأمور بيتها."},
+    {n:"الشفاء بنت عبد الله", t:"صحابية", b:"من النساء القليلات اللواتي أتقنّ الكتابة قبل الإسلام، وعلّمت أخريات القراءة والكتابة."},
+    {n:"سمية بنت خياط", t:"صحابية", b:"أول شهيدة في الإسلام، عُذّبت تعذيباً شديداً مع زوجها وابنها فثبتت حتى استُشهدت."},
+    {n:"ياسر بن عامر", t:"صحابي", b:"عُذّب مع زوجته وابنه بسبب إسلامهم، واستُشهد صابراً محتسباً."},
+    {n:"رقية بنت محمد", t:"صحابية", b:"ابنة النبي ﷺ وزوجة عثمان، هاجرت إلى الحبشة ثم المدينة، وتوفيت في غزوة بدر."},
+    {n:"أم كلثوم بنت محمد", t:"صحابية", b:"ابنة النبي ﷺ، تزوجها عثمان بعد وفاة أختها رقية وفاءً لعلاقة المصاهرة."},
+    {n:"زينب بنت محمد", t:"صحابية", b:"أكبر بنات النبي ﷺ، تحمّلت مشقة كبيرة في هجرتها من مكة إلى المدينة."},
+    {n:"أم أيمن", t:"صحابية", b:"حاضنة النبي ﷺ منذ صغره، وصفها النبي ﷺ بأنها من أهل بيته، وهاجرت وشهدت بعض الغزوات."},
+    {n:"صفية بنت عبد المطلب", t:"صحابية", b:"عمة النبي ﷺ، شاركت في الدفاع عن المسلمين في غزوة الخندق بشجاعة."},
+    {n:"فاطمة بنت الخطاب", t:"صحابية", b:"أخت عمر بن الخطاب، كان إسلامها وإسلام زوجها سبباً مباشراً في إسلام عمر بعد أن سمعهما يقرآن القرآن."},
+    {n:"أم ورقة بنت عبد الله", t:"صحابية", b:"حفظت القرآن وأذن لها النبي ﷺ أن تؤم أهل بيتها في الصلاة لعلمها وفضلها."},
+    {n:"خولة بنت حكيم", t:"صحابية", b:"من نساء المهاجرين الأوائل، عُرفت بورعها وحسن مشورتها في أمور بيتها ومجتمعها."},
+    {n:"أم الفضل لبابة بنت الحارث", t:"صحابية", b:"أخت ميمونة زوجة النبي ﷺ، وأول امرأة أسلمت بعد خديجة كما يُروى، وعُرفت بحكمتها."},
+    {n:"الخنساء تماضر بنت عمرو", t:"صحابية", b:"شاعرة اشتهرت برثاء إخوتها قبل الإسلام، فلما فقدت أبناءها الأربعة في القادسية حمدت الله على شهادتهم بصبر عظيم."},
+    {n:"عبد الله بن أم مكتوم", t:"صحابي", b:"صحابي كفيف، تولّى النبي ﷺ الأذان والصلاة به في المدينة أكثر من مرة، ونزلت فيه آيات قرآنية."},
+    {n:"زيد بن أرقم", t:"صحابي", b:"من صغار الصحابة سناً، عاش طويلاً فنقل للأمة كماً كبيراً من أحاديث النبي ﷺ ومواقفه."},
+    {n:"أبو اليسر كعب بن عمرو", t:"صحابي", b:"شهد بدراً وهو من صغار السن، وأسر أحد كبار قادة قريش فيها بفضل شجاعته."},
+    {n:"عبد الله بن سلام", t:"صحابي", b:"كان من كبار علماء اليهود قبل إسلامه، فبادر بأسئلة دقيقة للنبي ﷺ ليتأكد من صدقه ثم أسلم فوراً."}
+  ];
+
+  function tagFor(person, list, tagValue){
+    return {name:person.n, tag:tagValue, bio:person.b};
+  }
+
+  // Build unified list for the 100-companion encyclopedia
+  const encyclopedia = [
+    ...asharah.map(p => ({name:p.n, tag:"المبشّرون بالجنة", bio:p.b})),
+    ...wives.map(p => ({name:p.n, tag:"أم المؤمنين", bio:p.b})),
+    ...sahaba.map(p => ({name:p.n, tag:p.t, bio:p.b}))
+  ];
+
+  function renderCard(item){
+    return `<div class="card" data-name="${item.name}" data-tag="${item.tag}">
+      <div class="top-row"><h3>${item.name}</h3><span class="tag-pill">${item.tag}</span></div>
+      <p>${item.bio}</p>
+    </div>`;
+  }
+
+  const sahabaGrid = document.getElementById('sahabaGrid');
+  sahabaGrid.innerHTML = encyclopedia.map(renderCard).join('');
+
+  const asharahGrid = document.getElementById('asharahGrid');
+  asharahGrid.innerHTML = asharah.map(p => `
+    <div class="card">
+      <div class="top-row"><h3>${p.n}</h3><span class="tag-pill">مبشّر بالجنة</span></div>
+      <p>${p.b}</p>
+    </div>`).join('');
+
+  const wivesGrid = document.getElementById('wivesGrid');
+  wivesGrid.innerHTML = wives.map(p => `
+    <div class="card">
+      <div class="top-row"><h3>${p.n}</h3><span class="tag-pill">أم المؤمنين</span></div>
+      <p>${p.b}</p>
+    </div>`).join('');
+
+  // ---------- search + filter ----------
+  const searchInput = document.getElementById('sahabaSearch');
+  const tagFilter = document.getElementById('tagFilter');
+  const emptyState = document.getElementById('sahabaEmpty');
+  const resultCount = document.getElementById('resultCount');
+
+  function applyFilters(){
+    const q = searchInput.value.trim().toLowerCase();
+    const tag = tagFilter.value;
+    const cards = sahabaGrid.querySelectorAll('.card');
+    let visible = 0;
+    cards.forEach(card => {
+      const name = card.dataset.name.toLowerCase();
+      const bio = card.querySelector('p').innerText.toLowerCase();
+      const matchesText = !q || name.includes(q) || bio.includes(q);
+      const matchesTag = !tag || card.dataset.tag === tag;
+      const show = matchesText && matchesTag;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    emptyState.style.display = visible === 0 ? 'block' : 'none';
+    resultCount.textContent = visible + ' من أصل ' + cards.length + ' صحابي وصحابية';
+  }
+  searchInput.addEventListener('input', applyFilters);
+  tagFilter.addEventListener('change', applyFilters);
+  applyFilters();
+
+  // ---------- navigation ----------
+  const tabs = document.querySelectorAll('.tab-btn');
+  const views = document.querySelectorAll('.view');
+  function goTo(target){
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.target === target));
+    views.forEach(v => v.classList.toggle('active', v.id === target));
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  tabs.forEach(tab => tab.addEventListener('click', () => goTo(tab.dataset.target)));
+  document.querySelectorAll('.value-chip').forEach(chip => {
+    chip.addEventListener('click', () => goTo(chip.dataset.goto));
+  });
+</script>
+
+</body>
+</html>
