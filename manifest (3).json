@@ -1,0 +1,23 @@
+{
+  "name": "حياة الصحابة",
+  "short_name": "حياة الصحابة",
+  "description": "موسوعة رقمية في سِيَر الصحابة والصحابيات، الغزوات، وقصص الحب والبطولة",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fbf3de",
+  "theme_color": "#123832",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
